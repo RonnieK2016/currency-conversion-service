@@ -65,6 +65,7 @@ public class CurrencyConversionController {
                 .quantity(quantity)
                 .conversionMultiple(result.getConversionMultiple())
                 .totalCalculatedAmount(quantity.multiply(result.getConversionMultiple()))
+                .port(result.getPort())
                 .build();
     }
 }
