@@ -2,6 +2,8 @@ package com.udemy.microservices.currencyconversionservice.controllers;
 
 import com.udemy.microservices.currencyconversionservice.domain.CurrencyConversionBean;
 import com.udemy.microservices.currencyconversionservice.proxies.CurrencyExchangeServiceProxy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +18,8 @@ import java.util.Map;
 public class CurrencyConversionController {
 
     private CurrencyExchangeServiceProxy proxy;
+
+    private Logger logger = LoggerFactory.getLogger(CurrencyConversionController.class);
 
     public CurrencyConversionController(CurrencyExchangeServiceProxy proxy) {
         this.proxy = proxy;
@@ -59,6 +63,9 @@ public class CurrencyConversionController {
         if(result == null) {
             return CurrencyConversionBean.builder().build();
         }
+
+        logger.info("converting {} from {} to {}", quantity, from, to);
+
 
         return CurrencyConversionBean.builder()
                 .id(1L).from(from).to(to)
